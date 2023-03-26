@@ -1,0 +1,258 @@
+import { Steps, Split, Footer, Image, Notes } from 'mdx-deck';
+import { condensed } from '@mdx-deck/themes'
+
+export const theme = condensed;
+
+<Footer>
+
+TUHSD://hackath.on/2023/intro-to-db-and-hosting
+
+</Footer>
+
+# Intro to Databases and Hosting 
+
+<Notes>
+
+3m
+
+Give the students a heads up on the format,
+and what we'll be covering.
+
+- ~40m for the DB half of the talk
+- A short break
+- ~40m for the Hosting half of the talk.
+
+</Notes>
+
+---
+
+# Who am I?
+
+<Steps>
+
+- Self Taught Coder
+- Lead Software Engineer at Nikola
+- Avid Reader and Gamer
+
+</Steps>
+
+
+<Notes>
+
+2m
+
+</Notes>
+
+---
+
+# What is a database?
+
+<Notes>
+
+2m
+
+- An organized collection of structured information, or data.
+- Most common types of databases organize data into tables with
+  rows of data, similar to a spreadsheet.
+- Improvements over spreadsheets to allow for network access,
+  larger volumes of data, and multiple user access scenarios.
+
+</Notes>
+
+---
+
+# Common Types of Databases
+
+### Relational
+
+<Steps>
+
+- MySQL
+- Postgres
+- MariaDB
+
+</Steps>
+
+### Document Store / NoSQL
+
+<Steps>
+
+- Mongo
+- DynamoDB
+- CouchDB
+
+</Steps>
+
+
+<Notes>
+
+5/6m
+
+BE SURE TO COVER THE DIFFERENCES,
+YOU REMOVED THE DEDICATED SLIDE FOR THAT.
+
+- Relational - Tables with fixed columns. 
+- Document Store - Stores JSON documents, key/value pairs.
+
+Document stores are often easy to get started with, are flexible,
+and can be quite fast for queries and filtering.
+
+SQL / Relational DBs shine with well defined data structures,
+consistent data, and multi table queries (relationships).
+
+</Notes>
+
+---
+
+# Other Types of Databases
+
+<Steps>
+
+- Time-Series
+- Graph
+- In Memory
+- Financial
+
+</Steps>
+
+<Notes>
+
+2m
+
+Just quickly cover that there are many other types, Time-Series, Financial, Graph, In Memory.
+
+Links for further research in Readme.
+
+</Notes>
+
+---
+
+# SQLite 3 and Replit
+
+[https://bit.ly/35a8MqV](https://replit.com/@retrocede/TUHSD-Hackathon-2022-Intro-to-DB)
+
+<Notes>
+
+20m
+
+For these examples we will be using REPL.it and SQLite.
+
+- Since replit is a tool you already have had some exposure to, and they are a sponsor for the hackathon.
+- and b/c SQL/Relational databases are going to be generally the most common type you run into.
+
+</Notes>
+
+---
+
+# Database Q&A
+
+- ~10m for Questions and a quick break.
+
+<Notes>
+
+10m
+
+Short break after this. We need ~30-40m left for Hosting
+
+</Notes>
+
+---
+
+# Intro to Hosting
+
+<Notes>
+
+2m
+
+</Notes>
+
+---
+
+# Types of Hosting
+
+<Steps>
+
+- CDN / Static / JAMSTACK
+- PAAS (Heroku, etc)
+- Bare Metal VM
+- Docker / Kubernetes
+
+</Steps>
+
+<Notes>
+
+5m
+
+Give an overview of the broad types of hosting.
+
+</Notes>
+
+---
+
+# Heroku & Replit
+
+<Notes>
+
+3m
+
+Using Heroku for ease of use.
+Using Repl.it as they are a sponsor and a tools some of you have familiarity with.
+
+</Notes>
+
+---
+
+# Hosting a flask project on Heroku
+
+<Notes>
+
+~10m
+
+First just show that you can deploy a new instance of a template from a link in github.
+
+Then go over what is required and what makes that happen:
+- Procfile
+- requirements.txt
+- demo that we can hit it.
+- https://stackabuse.com/deploying-a-flask-application-to-heroku/
+
+</Notes>
+
+---
+
+# Hosting a flask project on Repl.it
+
+<Notes>
+
+~10m
+
+- Create a new python repl
+- Add Flask through package manager
+- https://replit.com/talk/learn/Flask-Tutorial-Part-1-the-basics/26272
+
+
+</Notes>
+
+---
+
+Learning opportunities:
+
+- Automation
+- Security
+- CI/CD
+
+<Notes>
+
+5m
+
+</Notes>
+
+---
+
+# Q&A
+
+<Notes>
+
+10m
+
+</Notes>
