@@ -23,157 +23,97 @@ SELECT "Hello World";
 __Select everything from a table__
 
 ```sql
-SELECT * FROM pokemon;
+SELECT * FROM weather;
 ```
 
 __Some examples of filtering:__
 
 ```sql
 ---
---- Get all pokemon of a certain generation
+--- Get all weather types that include precipitation
 ---
 SELECT * 
-  FROM pokemon
-  WHERE Generation = 3;
+  FROM weather
+  WHERE Precipitation = TRUE;
 
 ---
 --- You can also limit the columns returned
 ---
-SELECT Name, Type_1, Type_2
-  FROM pokemon
-  WHERE Legendary = "True";
+SELECT Name, Description
+  FROM weather
+  WHERE Precipitation = FALSE;
 
 ---
 --- You can also get more complex with your filtering
---- maybe you want to run a pure fire team using only pokemon from gen 4?
+--- Maybe you want to filter to only weather where the description mentions clouds
 ---
 SELECT *
-  FROM pokemon
+  FROM weather
   WHERE
-    Generation = 4
-    AND Type_1 = "Fire"
-    AND Type_2 IS NULL;
+    Description LIKE '%cloud%';
 
 ---
 --- Well, that's not going to work very well.... 
---- Let's include pokemon from the previous generations as well.
+--- We probably don't want Sunny included
 ---
 SELECT *
-  FROM pokemon
+  FROM weather
   WHERE
-    Generation < 5
-    AND Type_1 = "Fire"
-    AND Type_2 IS NULL:
+    Id > 1
+    AND Description LIKE '%cloud%';
   
----
---- That's better, if we want more options though, lets include 
---- pokemon with Fire as one of their two types (not just pure fire)
----
-SELECT *
-  FROM pokemon
-  WHERE
-    Generation < 5
-    AND "Fire" IN (Type_1, Type_2);
-
 ---
 --- If you want to see how many results you're getting
 ---
 SELECT COUNT(*)
-  FROM pokemon
+  FROM weather
   WHERE
-    Generation < 5
-    AND "Fire" IN (Type_1, Type_2);
-```
-
-__You can also sort the results__
-
-```sql
----
---- You're tired of fire teams ... I wonder what sort of dragons there are?
---- Let's sort by generation descending, so we can see the newest pokemon first!
----
-SELECT *
-  FROM pokemon
-  WHERE "Dragon" IN (Type_1, Type_2)
-  ORDER BY Generation DESC;
-
----
---- That's pretty good, but maybe lets also sort by If they are legendary?
----
-SELECT *
-  FROM pokemon
-  WHERE "Dragon" IN (Type_1, Type_2)
-  ORDER BY Legendary, Generation DESC;
-```
-
-__Grouping is an option as well__
-
-```sql
----
---- What if you want to know how many Legendary pokemon each generation has?
----
-SELECT Generation, COUNT(*)
-  FROM pokemon
-  WHERE Legendary = "True"
-  GROUP BY Generation;
-
----
---- You can also alias columns to make the output more legible
----
-SELECT Generation, COUNT(*) AS "Legendaries"
-  FROM pokemon
-  WHERE Legendary = "True"
-  GROUP BY Generation;
+    Id > 1
+    AND Description LIKE '%cloud%';
 ```
 
 ## Creating a Table
 
 
-__This is how our existing Pokemon table was created__
+__This is how our existing tables were created__
 
 ```sql
 ---
---- Create a table for pokemon
+--- Create a table for Cities
 ---
-CREATE TABLE pokemon(
-  Number      INTEGER  NOT NULL PRIMARY KEY,
-  Name       VARCHAR(25) NOT NULL,
-  Type_1     VARCHAR(8) NOT NULL,
-  Type_2     VARCHAR(8),
-  Total      INTEGER  NOT NULL,
-  HP         INTEGER  NOT NULL,
-  Attack     INTEGER  NOT NULL,
-  Defense    INTEGER  NOT NULL,
-  Sp_Atk     INTEGER  NOT NULL,
-  Sp_Def     INTEGER  NOT NULL,
-  Speed      INTEGER  NOT NULL,
-  Generation INTEGER  NOT NULL,
-  Legendary  VARCHAR(5) NOT NULL
+CREATE TABLE cities(
+  Id       INTEGER NOT NULL PRIMARY KEY
+ ,Name     VARCHAR(25) NOT NULL
+ ,State    VARCHAR(2) NOT NULL
+ ,Lat      TEXT NOT NULL
+ ,Lon      TEXT NOT NULL
+);
+
+---
+--- Create a table for weather types
+---
+CREATE TABLE weather(
+  Id                   INTEGER NOT NULL PRIMARY KEY
+ ,Name                 VARCHAR(30) NOT NULL
+ ,Precipitation        BOOLEAN NOT NULL 
+ ,Description           TEXT NOT NULL
 );
 ```
 
-__Let's create a table for pokemon trainers__
+__Let's create a table for weather data__
 
 ```sql
 ---
---- Create a table for Trainers
---- Trainers can carry up to 6 pokemon in a team
+--- Create a table for date-series weather data
 ---
-CREATE TABLE trainers(
-  Id             INTEGER NOT NULL PRIMARY KEY,
-  Name           VARCHAR(50) NOT NULL,
-  Pokemon_1      INTEGER,
-  Pokemon_2      INTEGER,
-  Pokemon_3      INTEGER,
-  Pokemon_4      INTEGER,
-  Pokemon_5      INTEGER,
-  Pokemon_6      INTEGER,
-  FOREIGN KEY(Pokemon_1) REFERENCES pokemon(Number),
-  FOREIGN KEY(Pokemon_2) REFERENCES pokemon(Number),
-  FOREIGN KEY(Pokemon_3) REFERENCES pokemon(Number),
-  FOREIGN KEY(Pokemon_4) REFERENCES pokemon(Number),
-  FOREIGN KEY(Pokemon_5) REFERENCES pokemon(Number),
-  FOREIGN KEY(Pokemon_6) REFERENCES pokemon(Number)
+CREATE TABLE weather_data(
+  Date                     REAL NOT NULL 
+  ,City                    INTEGER NOT NULL
+  ,Weather                 INTEGER NOT NULL
+  ,High                    INTEGER NOT NULL
+  ,Low                     INTEGER NOT NULL
+  ,FOREIGN KEY(City)       REFERENCES cities(Id)
+  ,FOREIGN KEY(Weather)    REFERENCES weather(Id)
 );
 ```
 
@@ -182,18 +122,23 @@ CREATE TABLE trainers(
 ```sql
 
 ---
---- Let's create the trio of trainers from gen1
+--- Let's add a day from last summer to each city
 ---
-INSERT INTO trainers (Name, Pokemon_1, Pokemon_2, Pokemon_3, Pokemon_4, Pokemon_5, Pokemon_6)
-VALUES
-  ("Ash Ketchum", 25, 12, 17, 1, 6, 7),
-  ("Misty", 120, 121, NULL, NULL, NULL, NULL),
-  ("Brock", 73, 95, NULL, NULL, NULL, NULL);
+INSERT INTO weather_data(Date, City, Weather, High, Low)
+  VALUES (julianday("2022-07-04"), 1, 5, 106, 84);
+INSERT INTO weather_data(Date, City, Weather, High, Low)
+  VALUES (julianday("2022-07-04"), 2, 1, 81, 68);
+INSERT INTO weather_data(Date, City, Weather, High, Low)
+  VALUES (julianday("2022-07-04"), 3, 2, 68, 52);
+INSERT INTO weather_data(Date, City, Weather, High, Low)
+  VALUES (julianday("2022-07-04"), 4, 2, 75, 66);
+INSERT INTO weather_data(Date, City, Weather, High, Low)
+  VALUES (julianday("2022-07-04"), 5, 2, 99, 77);
 
 ---
 --- We can check our work with this query
 ---
-SELECT * FROM trainers;
+SELECT * FROM weather_data WHERE Date = julianday("2022-07-04");
 ```
 
 ## Updating an Entry/Row
@@ -201,36 +146,133 @@ SELECT * FROM trainers;
 ```sql
 ---
 --- It's not obvious, but we made a mistake above.
---- We gave Brock a Tentacruel rather than a Geodude.
---- We can fix that by updating him
+--- We said it was snowing in Phoenix rather than sunny.
+--- We can fix that by updating that data row
 ---
-UPDATE trainers
-  SET Pokemon_1 = 74
-  WHERE Name = "Brock";
-
+UPDATE weather_data
+  SET Weather = 1
+  WHERE City = 1 AND Date = julianday("2022-07-04");
 ```
 
 ## Joining Tables
 
 ```sql
 ---
---- Now this works, but it would be nice to see something more meaningful than the ID# of the pokemon
+--- Now this works, but it would be nice to see something more meaningful than the ID# of the city and weather
 --- We can do this in a single query, by performing a JOIN.
+
 --- 
---- Let's get each trainer's first pokemon
+--- Let's get all weather data for July 4th of last year
 ---
-SELECT t.Name, p.Name, p.Type_1, p.Type_2
-  FROM trainers AS t
-  LEFT OUTER JOIN pokemon AS p
-    ON p.Number = t.Pokemon_1;
+SELECT 
+  d.Date, 
+  c.Name, 
+  w.Name,
+  d.High,
+  d.Low
+FROM weather_data as d
+  LEFT OUTER JOIN weather as w
+    ON d.Weather = w.Id
+  LEFT OUTER JOIN cities as c
+    ON d.City = c.Id
+WHERE d.Date = julianday("2022-07-04");
+
+---
+--- You can also alias columns to make the output more legible
+---
+SELECT 
+  d.Date, 
+  c.Name as City, 
+  w.Name as Weather,
+  d.High,
+  d.Low
+FROM weather_data as d
+  LEFT OUTER JOIN weather as w
+    ON d.Weather = w.Id
+  LEFT OUTER JOIN cities as c
+    ON d.City = c.Id
+WHERE d.Date = julianday("2022-07-04");
 ```
+
+__You can also sort the results__
+
+```sql
+---
+--- Let's say you want to get the results for Phoenix, sorted by date
+---
+SELECT 
+  d.Date, 
+  c.Name as City, 
+  w.Name as Weather,
+  d.High,
+  d.Low
+FROM weather_data as d
+  LEFT OUTER JOIN weather as w
+    ON d.Weather = w.Id
+  LEFT OUTER JOIN cities as c
+    ON d.City = c.Id
+WHERE d.City = 1
+ORDER by d.Date DESC;
+
+---
+--- That's pretty good, but let us make the date more human readable
+---
+SELECT 
+  date(d.Date) as Date, 
+  c.Name as City, 
+  w.Name as Weather,
+  d.High,
+  d.Low
+FROM weather_data as d
+  LEFT OUTER JOIN weather as w
+    ON d.Weather = w.Id
+  LEFT OUTER JOIN cities as c
+    ON d.City = c.Id
+WHERE d.City = 1
+ORDER by d.Date DESC;
+```
+
+__Grouping is an option as well__
+
+```sql
+---
+--- What if you want to see how many days of each weather type we have for Phoenix?
+---
+SELECT 
+  COUNT(*) as Days, 
+  w.Name as Weather
+FROM weather_data as d
+  LEFT OUTER JOIN weather as w
+    ON d.Weather = w.Id
+  LEFT OUTER JOIN cities as c
+    ON d.City = c.Id
+GROUP by d.Weather;
+
+---
+--- What if you want to know how Rainy days phoenix had in Feb?
+---
+SELECT 
+  c.Name as City, 
+  COUNT(*) as Days, 
+  w.Name as Weather
+FROM weather_data as d
+  LEFT OUTER JOIN weather as w
+    ON d.Weather = w.Id
+  LEFT OUTER JOIN cities as c
+    ON d.City = c.Id
+WHERE d.Weather = 4
+  AND d.Date >= julianday('2023-02-01')
+  AND d.Date <= julianday('2023-02-28')
+GROUP by d.Weather;
+```
+
 
 ## Challenges
 
-- Update the pokemon table to include a pokedex description.
-- Create a new table to track individual pokemon, their level, and attributes.
-- Improve the trainer query above to use the table for individual pokemon.
-- Improve the trainer query to get all pokemon for a given trainer.
+- Update the weather table to include an indication of each weather type is precipitation. Add some new weather types (hail, sleet, fog, etc)
+- Try finding more weather data and adding to the database. https://www.weather.gov/wrh/climate?wfo=psr is a good source for weather data.
+- Update the weather_data table to include amount of precipitation (usually in inches)
+- Write a query that gets the high/low/avg temperature for a month for a city. Maybe it could also get total precipitation amount?
 
 ## Additional Topics to Research
 
