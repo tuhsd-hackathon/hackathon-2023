@@ -1,0 +1,67 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  form {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: flex-end;
+    margin-top: 10%;
+  }
+  .form-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  label, input, button {
+    padding: 10px;
+    margin-left: 10px;
+  }
+  label {
+    padding-left: 0px;
+  }
+  .weather-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .error-message {
+    color: red;
+    text-align: center;
+  }
+  ul
+{
+    /*no bullet points*/
+    list-style-type: none;
+    background-color: blue;
+    /* give our ul property height so it is displayed
+    properly, used with float below*/
+    
+}
+
+li
+{
+    /*horizontal display*/
+    display: inline;
+    padding-left: 30 px;
+    padding-right: 30 px;
+    
+}
+
+/*apply to anchor elements (links) that are in a list*/
+li a
+{
+    font-size: 15 px;
+    color: white;
+    /*remove the underline*/
+    text-decoration: none;
+    padding: 30 px;
+    margin-right: 20 px;
+    margin-left: 20 px;
+}
+
+li a:hover
+{
+    background-color: aqua;
+    color: blue;
+}
