@@ -1,6 +1,6 @@
-# Full Stack - Connecting the Pieces
+# Intro to Backend Dev
 
-This is the slide deck for the _Full Stack - Connecting the Pieces_ talk.
+This is the slide deck for the _Backed Dev - Behind the Curtain_ talk.
 
 ## Development
 
