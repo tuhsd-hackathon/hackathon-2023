@@ -12,7 +12,6 @@
   },
   "name": "deck",
   "dependencies": {
-    "@mdx-deck/themes": "^4.1.0",
-    "theme-ui": "^0.2.41"
+    "@mdx-deck/themes": "^4.1.0"
   }
 }
