@@ -1,0 +1,316 @@
+import { condensed } from "@mdx-deck/themes"
+import { Steps, Footer, Notes } from "mdx-deck";
+
+export const theme = condensed;
+
+<Footer>
+
+TUHSD://hackath.on/2023/intro-to-backend-dev
+
+</Footer>
+
+# Backend
+
+### Behind the Curtain
+
+<Notes>
+
+[2m] => topic intro
+
+</Notes>
+
+---
+
+# Who am I?
+
+<Steps>
+
+- Self Taught Coder
+- Lead Software Engineer at Nikola
+- Avid Reader and Gamer
+
+</Steps>
+
+<Notes>
+
+[2m] => self intro
+
+</Notes>
+
+---
+
+# What is the back end?
+
+<Notes>
+
+[3m] => intro to concept of backend
+
+</Notes>
+
+---
+
+# Languages and Frameworks
+
+<Steps>
+
+ - Ruby => Rails | Sinatra
+ - JS  => Express | Nest | Next | Meteor
+ - Python => Flask | Django
+ - Elixir => Phoenix
+ - Rust   => Rocket | Atix
+ - Crystal => Amber | Kemal
+
+</Steps>
+
+<Notes>
+
+[3m] => some sample frameworks. 
+Drive home that pretty much every language has options
+
+</Notes>
+
+---
+
+# Common Tasks
+
+<Steps>
+
+ - Serving Static Files
+ - Providing an API
+ - Send requests to a 3rd party API
+ - Integrate with hardware
+ - Interact with data from a database
+
+</Steps>
+
+<Notes>
+
+[5m] => some examples of BE tasks. 
+
+</Notes>
+
+---
+
+# Selecting a Language / Framework
+
+<Steps>
+
+ - Actively maintained
+ - In a language you are comfortable with
+   - Or a language you want to learn
+ - Good sources of related packages, documentation, and support
+
+</Steps>
+
+<Notes>
+
+[2m] => Almost doesn't matter. Mostly important to be something you will have support in, and then focus on learning it.
+Don't just framework/language hop.
+
+</Notes>
+
+---
+
+# REPLIT 
+
+### Hello World API
+
+(( Add a link here ))
+
+<Notes>
+
+[10m] => basic hello world server. Go slow, cover each piece.
+
+</Notes>
+
+---
+
+# REPLIT
+
+### Add Static File Serving
+
+(( Add a link here ))
+
+<Notes>
+
+[10m] => add serving of static files
+
+</Notes>
+
+---
+
+# What is this server actually doing?
+
+<Notes>
+
+[1m] => It is listening for HTTP Requests, and responding to them.
+
+</Notes>
+
+---
+
+# HTTP Request
+
+
+```http
+GET /weather HTTP/1.1
+Host: localhost:3000
+
+{ city: 'Tucson', state: 'AZ' }
+```
+
+
+<Steps>
+
+- Method
+- URI
+- Headers
+- Body
+
+</Steps>
+
+<Notes>
+
+[5m] => Go over the parts of an HTTP Request.
+
+</Notes>
+
+---
+
+# HTTP Response
+
+```http
+HTTP/1.1 200 Ok
+Content-Type: text/js;
+
+{ temp: 26, unit: 'C' }
+```
+
+<Steps>
+
+- Status
+- Headers
+- Body
+
+</Steps>
+
+<Notes>
+
+[5m] => Go over the parts of an HTTP Response.
+
+</Notes>
+
+---
+
+# Intermission
+
+(5 min break)
+
+---
+
+# What is an API?
+
+<Notes>
+
+[2m] => Basic explanation of what an API is.
+
+</Notes>
+
+---
+
+# Types of APIs
+
+<Steps>
+
+- REST
+- SOAP
+- gRPC
+- GraphQL
+
+</Steps>
+
+<Notes>
+
+[2m] => Go over the general types of apis.
+
+</Notes>
+
+---
+
+# REST
+
+<Steps>
+
+- Resources
+- HTTP Actions
+- Stateless
+
+
+</Steps>
+
+<Notes>
+
+[5m] => Cover resource URLs with HTTP Actions governing what is done.
+Stateless = All info needed to handle the request is in the request.
+
+</Notes>
+
+---
+
+# REPLIT 
+
+### Adding Weather Endpoint
+
+(( Add a link here ))
+
+<Notes>
+
+[10m] => add a weather endpoint.
+Show options eg params vs path vs payload
+
+</Notes>
+
+---
+
+# REPLIT -- CORS
+
+(( Add a link here ))
+
+<Notes>
+
+[5m] => Brief explanation of CORS
+
+</Notes>
+
+---
+
+# REPLIT -- Using a 3rd Party API
+
+(( Add a link here ))
+
+<Notes>
+
+[10m] => Have us source data from a 3rd party api.
+
+</Notes>
+
+---
+
+# Common Issues
+
+<Notes>
+
+[10m] => CORS, Timeouts, Server Failures.
+
+</Notes>
+
+---
+
+# Q&A
+
+<Notes>
+
+~5m remaining for Q&A
+
+</Notes>
+
