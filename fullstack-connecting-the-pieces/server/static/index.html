@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="style.css"/>
+  <title>My Weather App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <nav>
+    <ul>
+        <li><a href = "index.html">Home</a></li>
+        <li><a href = "About.html">About</a></li>
+    </ul>
+  </nav>
+  <h1>My Weather App</h1>
+  <form>
+    <div class="form-item">
+      <label for="city">City Name: </label>
+      <input type="text" placeholder="Enter a city name" id="city" name="city" required>
+    </div>
+    <div class="form-item">
+      <label for="state">State Name: </label>
+      <input type="text" placeholder="Enter a state name" id="state" name="state" required>
+    </div>
+    <button type="submit">SUBMIT</button>
+  </form>
+  <div class="error-message"></div>
+
+  <div class="weather-info">
+    <h1 class="cityName"></h1>
+    <h4 class="celsius"></h4>
+    <h4 class="fahrenheit"></h4>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
